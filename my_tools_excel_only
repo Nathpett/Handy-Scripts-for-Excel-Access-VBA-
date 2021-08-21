@@ -1,0 +1,13 @@
+Option Explicit
+
+Function LastRow(ws As Worksheet) As Integer
+    LastRow = ws.Cells(rows.count, 1).End(xlUP).row
+End Function
+
+Function LastCol(ws As Worksheet) As Integer
+    LastCol = ws.Cells(1, columns.count).End(xltoleft).Column
+End Function
+
+Function GetCol(ws As Worksheet, field_name As String) As Long
+    GetCol = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
+End Function
