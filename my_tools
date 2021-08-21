@@ -1,0 +1,9 @@
+option explicit
+
+Function LastRow(ws as Worksheet) as integer
+  LastRow = ws.cells(rows.count, 1).end(xlUP).row
+End Function
+
+Function LastCol(ws as Worksheet) as integer
+  LastCol = ws.cells(1, columns.count).end(xltoleft).column
+End Function
