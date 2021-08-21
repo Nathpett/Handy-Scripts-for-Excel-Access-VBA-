@@ -11,3 +11,35 @@ End Function
 Function GetCol(ws As Worksheet, field_name As String) As Long
     GetCol = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
 End Function
+
+
+
+'ACCESS STUFF
+
+'References: Microsoft ActiveX Data Objects 6.1 Library
+Sub export_range_to_access(ws As Worksheet, r As Range, AccPath As String, AccTable As String)
+    Dim cn As ADODB.Connection: Set cn = New ADODB.Connection
+    Dim rs As ADODB.Recordset
+    cn.Open "Provider=Microsoft.ACE.OLEDB.12.0; " & _
+    "Data Source=" & AccPath & ";"
+    
+    Dim i As Long
+    Dim j As Long
+    
+    Set rs = New ADODB.Recordset
+    rs.Open AccTable, cn, adOpenDynamic, adLockOptimistic ', 'adCmdTable
+    
+    For i = 1 To r.Rows.Count
+        rs.AddNew
+        For j = 1 To rs.fields.Count - 1
+            rs.fields(j) = ws.Cells(i, GetCol(ws, rs.fields(j).name))
+        Next j
+        rs.Update
+    Next i
+    
+
+    rs.Close
+    Set rs = Nothing
+    cn.Close
+    Set cn = Nothing
+End Sub
