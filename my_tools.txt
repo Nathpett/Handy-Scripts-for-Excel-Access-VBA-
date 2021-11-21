@@ -1,17 +1,29 @@
 Option Explicit
 
-Function LastRow(ws As Worksheet) As Integer
-    LastRow = ws.Cells(rows.count, 1).End(xlUP).row
+Function last_row(ws As Worksheet) As Integer
+    last_row = ws.Cells(rows.count, 1).End(xlUP).row
 End Function
 
-Function LastCol(ws As Worksheet) As Integer
-    LastCol = ws.Cells(1, columns.count).End(xltoleft).Column
+Function last_col(ws As Worksheet) As Integer
+    last_col = ws.Cells(1, columns.count).End(xltoleft).Column
 End Function
 
-Function GetCol(ws As Worksheet, field_name As String) As Long
-    GetCol = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
+Function get_col(ws As Worksheet, field_name As String) As Long
+    get_col = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
 End Function
 
+Function pop_string(ByRef s as String, ByVal deli as String) as String
+    'pops first element in string s, where elementeds are delimited by deli argument
+    'TEST LATER WHEN YOU CAN
+    dim i as integer: i = instr(1, s, deli)
+    if i > 0 then:
+        pop_string = left(s, len(s) - i)
+        s = right(s, len(s) - i)
+    else
+        pop_string = s
+        s = ""
+    End if
+End function
 
 
 'ACCESS STUFF
