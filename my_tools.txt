@@ -12,6 +12,21 @@ Function get_col(ws As Worksheet, field_name As String) As Long
     get_col = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
 End Function
 
+Function last_row_any(ws as Worksheet) as Integer
+    'returns integer of last row, where last row is last populated cell of ANY column populated on the first row
+    dim i as integer
+    dim r as integer
+    
+    last_row_any = 1
+    for i = 1 to last_col(ws)
+        r = ws.Cells(rows.count, i).End(xlUP).row
+        if r > last_row_any then
+            last_row_any = r
+        end if
+    next i
+    
+End Function
+
 Function pop_string(ByRef s as String, ByVal deli as String) as String
     'pops first element in string s, where elementeds are delimited by deli argument
     'TEST LATER WHEN YOU CAN
