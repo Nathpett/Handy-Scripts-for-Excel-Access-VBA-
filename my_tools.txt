@@ -12,6 +12,10 @@ Function get_col(ws As Worksheet, field_name As String) As Long
     get_col = ws.Range("1:1").Find(field_name, LookIn:=xlValues, Lookat:=xlWhole).Column
 End Function
 
+Function get_table(ws As Worksheet) as Range
+    get_table = ws.Range(ws.cells(1,1), ws.cells((last_row(ws), last_col(ws)))
+End Function
+
 Function last_row_any(ws as Worksheet) as Integer
     'returns integer of last row, where last row is last populated cell of ANY column populated on the first row
     dim i as integer
